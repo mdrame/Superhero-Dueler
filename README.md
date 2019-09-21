@@ -2,7 +2,7 @@
 
 # Super Hero Dueler
 
-	<img src="super.png"/>
+<img src="super.png"/>
 
 
 	
