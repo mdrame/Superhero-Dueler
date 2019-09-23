@@ -26,10 +26,45 @@ class Hero:
 
     def attack(self):
         for ability in self.abilities: #iterating over self.abilities list of object
-            if ability.attack() in ability: # checking to see is the method attack() is in ability.
-                return ability.attack() # if attack() is in return it as an intiger ‼️.
-            else:
-                return = " Sorry there is no attack method in the abilities list ""
+            return ability.attack() # if attack() is in return it as an intiger ‼️.
+
+    def defend(self):
+        for armor in self.armors:
+            return armor.block()
+
+    def add_armor(self, armor):
+        self.armors.append(armor)
+
+    def take_damage(self, damage_amt):
+        self.current_health -= damage_amt
+
+    def is_alive(self):
+        if self.current_health <= 0:
+            return False # hero is dead dude
+        else:
+            return True
+
+    def fight(self, opponent): #  give  opponent same capibility in function
+        while self.is_alive() and opponent.is_alive():
+            # setting super heros up
+            #both heros attack method return 2 different random int
+            first_hero_attack = self.attack()
+            opponent_attack = opponent.attack()
+
+            #assiging heros damages/current life  base on attacks
+            opponent.take_damage(first_hero_attack)
+            self.take_damage(opponent_attack)
+
+        if self.is_alive() == False and opponent.is_alive() == False:
+            print("👾 : Draw Game!")
+        elif self.is_alive() == False:
+            print(f'{opponent.name} won')
+        elif opponent.is_alive() == False:
+            print(f'{self.name} won')
+
+
+
+
 
 
 
@@ -44,6 +79,8 @@ class Ability:
 
     def attack(self):
       return random.randint(0,self.attack_strength)
+
+
 
 
 # super hero weapons blueprint class
@@ -61,13 +98,48 @@ class Armor:
 
 
 
+
+
+
 #testing
 
 if __name__ == "__main__":
 
+    #armors
+    flash_suit = Armor("Red Suit", 100)
+    flash_ring = Armor("Flask Ring 💍", 80)
+
+    #abilities
+    #super hero 1
     flying = Ability(" Flying ", 100)
     invensibility = Ability(" Invensibility ", 99)
-    the_flask = Hero("The flask", 100)
-    the_flask.add_ability(flying)
-    the_flask.add_ability(invensibility)
-    print(the_flask.attack())
+    #super hero 2
+    super_speed = Ability("Super Speed", 300)
+    super_eye = Ability("Super Eyes", 130)
+
+
+    #heros ( name )
+    the_flash = Hero("The flask", 310)
+    zoom = Hero("Zoom 🔱", 100)
+
+    #add abilities
+    the_flash.add_ability(flying)
+    the_flash.add_ability(invensibility)
+
+    zoom.add_ability(super_speed)
+    zoom.add_ability(super_eye)
+
+    #add armors
+    the_flash.add_armor(flash_suit)
+    the_flash.add_armor(flash_ring)
+    #take punch
+    the_flash.take_damage(10)
+
+    # print(f"Attack Power: {the_flash.attack()}")
+    # print(f"Depense Power : {the_flash.defend()}")
+    # print(f"current health : {the_flash.current_health}")
+
+    # checking to see if hero is alive or dead
+    #print(the_flash.is_alive())
+
+    the_flash.fight(zoom)
