@@ -171,6 +171,11 @@ class Team:
         for hero in self.heroes:
              print(f"{hero.name} is one hell of a baddass current ratio of kills/deaths of {hero.kills//hero.deaths}.")
 
+    def healthCheck(self):
+        total = 0
+        for hero in self.heroes:
+            total += hero.current_health
+        return total
 
 
 
@@ -226,8 +231,136 @@ class Arena:
         self.winning_team = None
 
 
+    def create_ability(self):
+        '''Prompt for Ability information.
+            return Ability with values from user Input
+        '''
+        # TODO: This method will allow a user to create an ability.
+        # Prompt the user for the necessary information to create a new ability object.
+        # return the new ability object.
+
+        name = str(input("Enter Ability : "))
+        strength = int(input("Enter Ability Attack Strength: "))
+        ability = Ability(name, strength)
+        return ability
 
 
+    def create_weapon(self):
+        '''Prompt user for Weapon information
+            return Weapon with values from user input.
+        '''
+        # TODO: This method will allow a user to create a weapon.
+        # Prompt the user for the necessary information to create a new weapon object.
+        # return the new weapon object.
+        name = str(input("Enter Weapon Name :"))
+        strength = int(input("Enter Weapon Attack Strength: "))
+        weapon = Weapon(name, strength)
+        return weapon
+
+
+     def create_armor(self):
+        '''Prompt user for Armor information
+          return Armor with values from user input.
+        '''
+        # TODO:This method will allow a user to create a piece of armor.
+        #  Prompt the user for the necessary information to create a new armor
+        #  object.
+        #
+        #  return the new armor object with values set by user.
+
+        name = str(input("Enter Armor Name: "))
+        blocking_power = int(input("Enter Blocking Strength: "))
+        armor = Armor(name, blocking_power)
+        return armor
+
+     def create_hero(self):
+        '''Prompt user for Hero information
+          return Hero with values from user input.
+        '''
+        # TODO: This method should allow a user to create a hero.
+        # User should be able to specify if they want armors, weapons, and
+        # abilities.
+        # Call the methods you made above and use the return values to build
+        # your hero.
+        #
+        # return the new hero object
+        heroName = input("\nHero name: ")
+        return Hero(heroName)
+
+
+    def build_team_one(self):
+        '''Prompt the user to build team_one '''
+        # TODO: This method should allow a user to create team one.
+        # Prompt the user for the number of Heroes on team one
+        # call self.create_hero() for every hero that the user wants to add to team one.
+        #
+        # Add the created hero to team one.
+        teamOneName = input("Let's create the 1st team. What you want to call them?: ")
+        #todo write error handling code just incase user enter character instead of int
+        numberOfHeroes = int(input(f"How many heroes do you want to have in Team {teamOneName}? ")
+        self.team_one = Team(teamOneName)
+
+        while numberOfHeroes > 0:
+            numberOfHeroes -= #intended to subtract till loop is terminated
+            self.team_one.heroes.append(self.create_hero())
+        for hero in self.team_one.heroes:
+            hero.armors.append(self.create_armor())
+            hero.abilities.append(self.create_ability())
+            hero.abilities.append(self.create_weapon())
+
+    def build_team_two(self):
+        '''Prompt the user to build team_two'''
+        # TODO: This method should allow a user to create team two.
+        # Prompt the user for the number of Heroes on team two
+        # call self.create_hero() for every hero that the user wants to add to team two.
+        #
+        # Add the created hero to team two.
+        teamTwoName = str(input("\nNow, Let's create the 2nd team. What  you want to call them?: "))
+        #todo write error handling code just incase user enter character instead of int
+        numberOfHeroes = int(input(f"How many heroes do you want to have in Team {teamTwoName}? ")
+        self.team_two = Team(teamTwoName)
+
+        while numberOfHeroes > 0:
+            numberOfHeroes -= 1
+            self.team_two.heroes.append(self.create_hero())
+        for hero in self.team_two.heroes:
+            hero.armors.append(self.create_armor())
+            hero.abilities.append(self.create_ability())
+            hero.abilities.append(self.create_weapon())
+
+
+     def team_battle(self):
+        '''Battle team_one and team_two together.'''
+        # TODO: This method should battle the teams together.
+        # Call the attack method that exists in your team objects
+        # for that battle functionality.
+        self.team_one.attack(self.team_two)
+
+
+    def show_stats(self):
+        '''Prints team statistics to terminal.'''
+        # TODO: This method should print out battle statistics
+        # including each team's average kill/death ratio.
+        # Required Stats:
+        #     Declare winning team
+        #     Show both teams average kill/death ratio.
+        #     Show surviving heroes.
+         print("STATS:\n")
+         if self.team_one.healthCheck() < 1:
+             print(f"{self.team_two.name} Wins 🥳") #means he won
+             for hero in self.team_two.heroes:
+                 if hero.current_health > 0: #means he won
+                    print(f"{hero.name} Won")
+        elif self.team_two.healthCheck() < 0: #means he won
+            print(f"{self.team_one.name} Wins")
+            for hero in self.team_one.heroes:
+                if hero.current_health > 0: #means he won
+                   print(f"{hero.name} Won")
+
+
+        print("Team KDR:")
+        self.team_one.stats()
+        self.team_two.stats()
 
 #testing
 
