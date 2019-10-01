@@ -26,9 +26,9 @@ Clone our repo and then run using
 
 ```sh
 python3 superhero.py
-make sure you is in the /Main folder
-```
 
+```
+make sure you is in the /Main folder
 
 
 
