@@ -39,7 +39,6 @@ Distributed under the MIT license.
 
 Mo's Channel - https://www.youtube.com/channel/UCBTVuaTf-Ui5qSgvrOnaqig
 
-Mo's Github - https://github.com/mdrame
 
 
 <!-- Markdown link & img dfn's -->
